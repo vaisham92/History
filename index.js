@@ -89,6 +89,13 @@ app.get('/login', function(request, response) {
     });
 });
 
+app.get('/profile', function(request, response) {
+    response.send({
+        "status": 200,
+        "profile": request.session.profile
+    });
+});
+
 var getAccessToken = function(oauth2Client, code, callback) {
     oauth2Client.getToken(code, function (err, tokens) {
         if (err) {
