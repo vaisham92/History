@@ -26,7 +26,6 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-    request.session.goauth2 =
     response.render('pages/index');
 });
 
@@ -109,11 +108,7 @@ app.get('/oauth2', function(request, response) {
             }
             console.log(profile.displayName, ':', profile.tagline);
             request.session.profile = profile;
-            response.send({
-                "status": 200,
-                "message": "authorized",
-                "profile": request.session.profile
-            });
+            res.sendfile(__dirname + '/public/home.html');
         });
     });
 });

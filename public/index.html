@@ -12,9 +12,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="shortcut icon" href="favicon.png" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="favicon.png" type="image/vnd.microsoft.icon"/>
-</head>
 
-<body background="images/opacity3.png" >
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-route.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-route.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.3/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+</head>
+<script>
+    var landing = angular.module('binary', []);
+    landing.controller('mainController', function ($scope, $http, $routeParams) {
+
+        /**
+         * authenticates the user
+         */
+        $scope.doGoogleAuth = function() {
+            var get_call = $http('/login');
+            get_call.success(function(data) {
+                window.location = data.auth_url;
+            });
+        };
+    });
+</script>
+<body background="images/opacity3.png" ng-app ="landing" ng-controller="landingCtrl">
     <div class="row">
         <p></p>
     </div>
@@ -31,7 +51,7 @@
                     <br>
                     <br>
                     <div class="row">
-                        <a class="waves-effect waves-light red btn"><i class="mdi mdi-google"></i>&nbsp&nbsp&nbspLogin with Google</a>
+                        <a class="waves-effect waves-light red btn" ng-click="doGoogleAuth()"><i class="mdi mdi-google"></i>&nbsp&nbsp&nbspLogin with Google</a>
                     </div>
                     <div class="row">
                         <p class="grey-text darken-4">Using google oauth2 to authenticate user</p>
