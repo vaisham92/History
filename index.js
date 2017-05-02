@@ -43,6 +43,7 @@ var plus = google.plus('v1');
 var CLIENT_ID = '98297658525-hbuigb5jncsqce793h86t2qo9a4pqcns.apps.googleusercontent.com';
 var CLIENT_SECRET = 'pC67o3mEXIaOhut0yHjGojD1';
 var REDIRECT_URL = 'https://historyinsights.herokuapp.com/oauth2';
+//var REDIRECT_URL = 'http://localhost:5000/oauth2';
 
 var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
@@ -108,7 +109,7 @@ app.get('/oauth2', function(request, response) {
             }
             console.log(profile.displayName, ':', profile.tagline);
             request.session.profile = profile;
-            res.sendfile(__dirname + '/public/home.html');
+            response.sendfile(__dirname + '/public/home.html');
         });
     });
 });

@@ -27,7 +27,7 @@
          * authenticates the user
          */
         $scope.doGoogleAuth = function() {
-            var get_call = $http('/login');
+            var get_call = $http.get('/login');
             get_call.success(function(data) {
                 window.location = data.auth_url;
             });
