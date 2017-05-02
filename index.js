@@ -20,6 +20,9 @@ app.use(session({resave: true, saveUninitialized: true, secret: 'historychromeap
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/public/index.html');
 });
+app.get('/home', function(req, res) {
+    res.sendfile(__dirname + '/public/home.html');
+});
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -109,7 +112,10 @@ app.get('/oauth2', function(request, response) {
             }
             console.log(profile.displayName, ':', profile.tagline);
             request.session.profile = profile;
-            response.sendfile(__dirname + '/public/home.html');
+            //response.sendfile(__dirname + '/public/landing.html');
+            response.statusCode = 302;
+            response.setHeader("Location", "/home");
+            response.end();
         });
     });
 });
