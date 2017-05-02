@@ -52,6 +52,10 @@ var rl = readline.createInterface({
     output: process.stdout
 });
 
+var scopes = [
+    'https://www.googleapis.com/auth/plus.me'
+];
+
 app.get('/isLoggedIn', function(request, response) {
    if(request.session.profile !== undefined) {
         response.send({
@@ -83,22 +87,19 @@ app.get('/login', function(request, response) {
 });
 
 var getAccessToken = function(oauth2Client, code, callback) {
-    rl.question('Enter the code here:', function (code) {
-        // request access token
-        oauth2Client.getToken(code, function (err, tokens) {
-            if (err) {
-                return callback(err);
-            }
-            // set tokens to the client
-            // TODO: tokens should be set by OAuth2 client.
-            oauth2Client.setCredentials(tokens);
-            callback();
-        });
+    oauth2Client.getToken(code, function (err, tokens) {
+        if (err) {
+            return callback(err);
+        }
+        // set tokens to the client
+        // TODO: tokens should be set by OAuth2 client.
+        oauth2Client.setCredentials(tokens);
+        callback();
     });
 };
 
 app.get('/oauth2', function(request, response) {
-    var code = req.query.code;
+    var code = request.query.code;
     console.log(code);
     getAccessToken(oauth2Client, code, function () {
         // retrieve user profile
