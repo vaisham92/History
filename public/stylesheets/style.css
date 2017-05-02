@@ -10,3 +10,9 @@ a {
 .myImg {
   filter:opacity(30%);
 }
+
+html,
+body,
+.login-box {
+  height: 100%;
+}
