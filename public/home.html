@@ -36,7 +36,7 @@
             </div>
             <a href=""><img class="circle" ng-src="{{profile.image.url}}"></a>
             <a href="{{url}}"><span class="white-text name truncate">{{profile.displayName}}</span></a>
-            <a href=""><span class="white-text email">vaisham92@gmail.com</span></a>
+            <a href=""><span class="white-text email">{{profile.emails[0].value}}</span></a>
         </div></li>
         <li><a class="waves-effect" href="/home"><i class="material-icons">dashboard</i>Dashboard</a></li>
         <li><a class="waves-effect" href="/home"><i class="material-icons">settings</i>Settings</a></li>

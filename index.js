@@ -56,7 +56,9 @@ var rl = readline.createInterface({
 });
 
 var scopes = [
-    'https://www.googleapis.com/auth/plus.me'
+    'https://www.googleapis.com/auth/plus.me',
+    'profile',
+    'email'
 ];
 
 app.get('/isLoggedIn', function(request, response) {
@@ -114,10 +116,11 @@ app.get('/oauth2', function(request, response) {
     getAccessToken(oauth2Client, code, function () {
         // retrieve user profile
         plus.people.get({ userId: 'me', auth: oauth2Client }, function (err, profile) {
+            //console.log(oauth2Client);
             if (err) {
                 return console.log('An error occured', err);
             }
-            console.log(profile.displayName, ':', profile.tagline);
+            //console.log(profile);
             request.session.profile = profile;
             //response.sendfile(__dirname + '/public/landing.html');
             response.statusCode = 302;
