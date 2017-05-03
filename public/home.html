@@ -38,11 +38,11 @@
             <a href="{{url}}"><span class="white-text name truncate">{{profile.displayName}}</span></a>
             <a href=""><span class="white-text email">vaisham92@gmail.com</span></a>
         </div></li>
-        <li><a class="waves-effect" href="/home"><i class="material-icons">cloud</i>Dashboard</a></li>
-        <li><a class="waves-effect" href="/home">Settings</a></li>
+        <li><a class="waves-effect" href="/home"><i class="material-icons">dashboard</i>Dashboard</a></li>
+        <li><a class="waves-effect" href="/home"><i class="material-icons">settings</i>Settings</a></li>
         <li><div class="divider"></div></li>
-        <li><a class="subheader">Info</a></li>
-        <li><a class="waves-effect" href="">Third Link With Waves</a></li>
+        <!--<li><a class="subheader">Info</a></li>
+        <li><a class="waves-effect" href="">Third Link With Waves</a></li>-->
     </ul>
 </div>
 <div class="wrapper">
@@ -54,10 +54,8 @@
     <nav class="blue accent-3 navbar-fixed" role="navigation">
         <div class="nav-wrapper container"><a href="/home" class="brand-logo">History Analytics</a>
             <ul class="right">
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Logout</a></li>
+                <li class="waves-effect"><a ng-click="logout()"><i class="large material-icons">power_settings_new</i></a></li>
             </ul>
-
             <ul id="nav-mobile" class="side-nav">
                 <li><a href="#">Navbar Link</a></li>
             </ul>
