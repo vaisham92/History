@@ -129,6 +129,14 @@ app.get('/oauth2', function(request, response) {
         });
     });
 });
+
+app.get('/logout', function(request, response) {
+    request.session.profile = undefined;
+    response.send({
+        "status": 200,
+        "message": "User logged out successfully!!!"
+    })
+});
 /**
  * Google oauth2 ends here
  */

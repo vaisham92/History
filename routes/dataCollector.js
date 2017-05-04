@@ -4,7 +4,8 @@
 var helperFunctions = require('./helper-functions');
 var dbHelper = require('./mongo-db-helper');
 var mongo = require("./mongo");
-var mongoURL = "mongodb://localhost:27017/history";
+var mongoURL = "mongodb://vaisham92:marias@ds131041.mlab.com:31041/history";
+//var mongoURL = "mongodb://localhost:27017/history";
 
 /**
  * saves the record in the format

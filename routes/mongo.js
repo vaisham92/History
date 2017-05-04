@@ -17,13 +17,6 @@ exports.connect = function(url, callback) {
         db2 = _db2;
         connected = true;
         console.log(connected + " is connected?");
-        var adminDb = db2.admin();
-        // List all the available databases
-        adminDb.listDatabases(function(err, dbs) {
-            test.equal(null, err);
-            test.ok(dbs.databases.length > 0);
-            //db.close();
-        });
         callback(db2);
     });
 };

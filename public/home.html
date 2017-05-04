@@ -20,6 +20,13 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.3/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
 
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/gantt.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
     <script type="text/javascript" src="angular/history.js"></script>
 </head>
 <style type="text/css">
@@ -34,73 +41,19 @@
             <div class="background">
                 <img src="images/office.jpg">
             </div>
-            <a href=""><img class="circle" ng-src="{{profile.image.url}}"></a>
-            <a href="{{url}}"><span class="white-text name truncate">{{profile.displayName}}</span></a>
-            <a href=""><span class="white-text email">{{profile.emails[0].value}}</span></a>
+            <a href="{{profile.url}}"><img class="circle" ng-src="{{profile.image.url}}"></a>
+            <a href="{{profile.url}}"><span class="white-text name truncate">{{profile.displayName}}</span></a>
+            <a href="{{profile.url}}"><span class="white-text email">{{profile.emails[0].value}}</span></a>
         </div></li>
         <li><a class="waves-effect" href="/home"><i class="material-icons">dashboard</i>Dashboard</a></li>
+        <li><a class="waves-effect" href="/analytics"><i class="material-icons">tune</i>Analytics</a></li>
         <li><a class="waves-effect" href="/home"><i class="material-icons">settings</i>Settings</a></li>
         <li><div class="divider"></div></li>
         <!--<li><a class="subheader">Info</a></li>
         <li><a class="waves-effect" href="">Third Link With Waves</a></li>-->
     </ul>
 </div>
-<div class="wrapper">
-    <div class="blue accent-4">
-        <div class="container">
-            <a class="white-text text-lighten-3" href="https://github.com/vaisham92/CMPE295">Team Illusion</a>
-        </div>
-    </div>
-    <nav class="blue accent-3 navbar-fixed" role="navigation">
-        <div class="nav-wrapper container"><a href="/home" class="brand-logo">History Analytics</a>
-            <ul class="right">
-                <li class="waves-effect"><a ng-click="logout()"><i class="large material-icons">power_settings_new</i></a></li>
-            </ul>
-            <ul id="nav-mobile" class="side-nav">
-                <li><a href="#">Navbar Link</a></li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-            <br>
-        </div>
-    </nav>
-    <div class="container">
-        <div ng-view>
-        </div>
-    </div>
-    <footer class="page-footer blue accent-3">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Company Bio</h5>
-                    <p class="grey-text text-lighten-4">We are a team of college students working on this project to predict behavior and mine rules about a user from the users browsing history</p>
-
-
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Settings</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Help</a></li>
-                        <li><a class="white-text" href="#!">About Us</a></li>
-                        <li><a class="white-text" href="#!">Sign Up</a></li>
-                        <li><a class="white-text" href="#!">Login</a></li>
-                    </ul>
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Connect</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Contact Us</a></li>
-                        <li><a class="white-text" href="#!">Meet our team</a></li>
-                        <li><a class="white-text" href="#!">Careers</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                Made by <a class="green-text text-lighten-3" href="https://github.com/vaisham92/CMPE295">Team Illusion</a>
-            </div>
-        </div>
-    </footer>
+<div ng-view>
 </div>
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
