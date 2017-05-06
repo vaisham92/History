@@ -20,6 +20,7 @@ var mongoURL = "mongodb://vaisham92:marias@ds131041.mlab.com:31041/history";
  * @param response
  */
 exports.saveDataByProfileId = function(request, response) {
+    //isQualifiedURL(hostname, function(){}, function(){});
   try {
       mongo.connect(mongoURL, function() {
           helperFunctions.getDateForCollection(function(collectionName) {
@@ -27,46 +28,54 @@ exports.saveDataByProfileId = function(request, response) {
               var current_day_collection = mongo.collection(collectionName);
               //console.log(current_day_collection);
               helperFunctions.getURLComponents(request.body.website, function(hostname, pathname) {
-                  var profile_id = request.body.profile_id;
-                  var data_to_insert = {
-                      "T1": request.body.T1,
-                      "T2": request.body.T2,
-                      "hostname": hostname,
-                      "pathname": pathname
-                  };
-                  //console.log(data_to_insert);
-                  var searchData = Object();
-                  searchData[profile_id] = {"$exists": true};
-                  dbHelper.doesExistInDb(current_day_collection, searchData, function() {
-                      console.log("record exists");
-                        // already data exists for the user for current day
-                        // update the existing data with current data
-                      dbHelper.readOne(current_day_collection, searchData, null, function(data) {
+                  isQualifiedURL(hostname, function(){
+                      var profile_id = request.body.profile_id;
+                      var data_to_insert = {
+                          "T1": request.body.T1,
+                          "T2": request.body.T2,
+                          "hostname": hostname,
+                          "pathname": pathname
+                      };
+                      //console.log(data_to_insert);
+                      var searchData = Object();
+                      searchData["user_id"] = profile_id;
+                      dbHelper.doesExistInDb(current_day_collection, searchData, function() {
+                          console.log("record exists");
+                          // already data exists for the user for current day
+                          // update the existing data with current data
+                          dbHelper.readOne(current_day_collection, searchData, null, function(data) {
+                              var postData = {};
+                              var chromeHistory = {};
+                              data["chromeHistory"].push(data_to_insert);
+                              chromeHistory["chromeHistory"] = data["chromeHistory"];
+                              postData['$set'] = chromeHistory;
+                              dbHelper.updateCollection(current_day_collection, searchData, postData, function() {
+                                  response.send({
+                                      "status": "200",
+                                      "message": "user data appended"
+                                  });
+                              });
+                          });
+                      }, function() {
+                          // record doesn't exist for the user for current day
+                          // we need to create new record for today
+                          console.log("record doesnt exist");
+                          var history_data = [];
+                          history_data.push(data_to_insert);
                           var postData = {};
-                          var profileKey = {};
-                          data[profile_id].push(data_to_insert);
-                          profileKey[profile_id] = data[profile_id];
-                          postData['$set'] = profileKey;
-                          dbHelper.updateCollection(current_day_collection, searchData, postData, function() {
+                          postData['user_id'] = profile_id;
+                          postData['chromeHistory'] = history_data;
+                          dbHelper.insertIntoCollection(current_day_collection, postData , function() {
                               response.send({
                                   "status": "200",
                                   "message": "user data appended"
                               });
                           });
                       });
-                  }, function() {
-                        // record doesn't exist for the user for current day
-                        // we need to create new record for today
-                      console.log("record doesnt exist");
-                      var history_data = [];
-                      history_data.push(data_to_insert);
-                      var profileKey = {};
-                      profileKey[profile_id] = history_data;
-                      dbHelper.insertIntoCollection(current_day_collection, profileKey , function() {
-                          response.send({
-                              "status": "200",
-                              "message": "user data appended"
-                          });
+                  }, function(){
+                      response.send({
+                          "status": 400,
+                          "errmsg": "BAD REQUEST"
                       });
                   });
               }); // helperFunctions hostname pathname
@@ -79,4 +88,9 @@ exports.saveDataByProfileId = function(request, response) {
           "errmsg": "Unable to update data"
       });
   }
+};
+
+var isQualifiedURL = function(url, success, failure) {
+    if(url === "newtab") failure();
+    else success();
 };
