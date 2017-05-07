@@ -2,10 +2,10 @@
  * Created by Vaishampayan Reddy on 4/29/2017.
  */
 var URL = require('url');
-exports.getDateForCollection = function(callback) {
-    var today = new Date();
+exports.getDateForCollection = function(timestamp, callback) {
+    var today = new Date(timestamp);
     var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
     if(dd<10) {
         dd='0'+dd

@@ -23,7 +23,7 @@ exports.saveDataByProfileId = function(request, response) {
     //isQualifiedURL(hostname, function(){}, function(){});
   try {
       mongo.connect(mongoURL, function() {
-          helperFunctions.getDateForCollection(function(collectionName) {
+          helperFunctions.getDateForCollection(request.body.T1,function(collectionName) {
               //console.log(collectionName);
               var current_day_collection = mongo.collection(collectionName);
               //console.log(current_day_collection);
