@@ -14,6 +14,7 @@ exports.getDateForCollection = function(timestamp, callback) {
         mm='0'+mm
     }
     today = 'h' + mm + '' + dd + '' + yyyy;
+    //console.log(today);
     callback(today);
 };
 
