@@ -8,9 +8,9 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var dataCollector = require('./routes/dataCollector');
+var resultsFetcher = require('./routes/resultsFetcher');
 
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/public'));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -18,19 +18,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({resave: true, saveUninitialized: true, secret: 'historychromeapplication', cookie: { maxAge: 6000000 }}));
 app.get('/', function(req, res) {
-    res.sendfile(__dirname + '/public/index.html');
+    //console.log("entered here");
+    //console.log(req.session.profile);
+    if(req.session.profile) {
+        res.sendfile(__dirname + '/public/home.html');
+    }
+    else {
+        res.sendfile(__dirname + '/public/index.html');
+    }
 });
-app.get('/home', function(req, res) {
-    res.sendfile(__dirname + '/public/home.html');
-});
+app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
-    response.render('pages/index');
-});
 
 /**
  * Google Oauth2
@@ -91,6 +93,13 @@ app.get('/login', function(request, response) {
     });
 });
 
+app.get('/logout', function(request, response) {
+   request.session.profile = undefined;
+   response.send({
+       "status": 200,
+       "message": "Logged out successfully"
+   });
+});
 app.get('/profile', function(request, response) {
     response.send({
         "status": 200,
@@ -123,9 +132,7 @@ app.get('/oauth2', function(request, response) {
             //console.log(profile);
             request.session.profile = profile;
             //response.sendfile(__dirname + '/public/landing.html');
-            response.statusCode = 302;
-            response.setHeader("Location", "/home");
-            response.end();
+            response.redirect('/');
         });
     });
 });
@@ -142,11 +149,13 @@ app.get('/logout', function(request, response) {
  */
 
 app.post('/history', dataCollector.saveDataByProfileId);
+app.get('/api/rules', resultsFetcher.getRules);
+app.get('/api/categories', resultsFetcher.getCategorizations);
+app.get('/api/recommendations', resultsFetcher.getRecommendations);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -6,8 +6,25 @@
         }
     </style>
     <div class="container row">
-        <h4 class="red-text">dashboard</h4>
-        <h4 class="red-text">Please check back shortly</h4>
+        <h5 class="red-text">Rules for yesterday are: </h5>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>LHS</th>
+                    <th>RHS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="rule in rules">
+                    <td>{{$index + 1}}</td>
+                    <td>{{rule.LHS}}</td>
+                    <td>{{rule.RHS}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <footer class="page-footer blue accent-3">
         <div class="container">

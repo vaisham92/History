@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Title -->
+    <title>History</title>
+    <base href="/"/>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdn.materialdesignicons.com/1.9.32/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="stylesheets/style.css"/>
-    <title>History</title>
-    <base href="/"/>
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="shortcut icon" href="favicon.png" type="image/vnd.microsoft.icon"/>
@@ -28,32 +30,62 @@
     <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
     <script type="text/javascript" src="angular/history.js"></script>
+    <script type="text/javascript" src="angular/mainController.js"></script>
+    <script type="text/javascript" src="angular/categorizationController.js"></script>
+    <script type="text/javascript" src="angular/dashboardController.js"></script>
+    <script type="text/javascript" src="angular/recommendationController.js"></script>
+    <script type="text/javascript" src="angular/rulesController.js"></script>
+    <script type="text/javascript" src="angular/404Controller.js"></script>
+
 </head>
+<body>
 <style type="text/css">
     .wrapper {
         padding-left: 300px;
     }
 </style>
-<body ng-app="historyapp">
-<div ng-controller="mainCTRL">
-    <ul id="slide-out" class="side-nav fixed">
-        <li><div class="userView">
-            <div class="background">
-                <img src="images/office.jpg">
+<div ng-app="historyapp">
+    <div class="wrapper" ng-controller="mainCTRL">
+        <ul id="slide-out" class="side-nav fixed">
+            <li><div class="userView">
+                <div class="background">
+                    <img src="images/office.jpg">
+                </div>
+                <a href="{{profile.url}}"><img class="circle" ng-src="{{profile.image.url}}"></a>
+                <a href="{{profile.url}}"><span class="white-text name truncate">{{profile.displayName}}</span></a>
+                <a href="{{profile.url}}"><span class="white-text email">{{profile.emails[0].value}}</span></a>
+            </div></li>
+            <li><a class="waves-effect" href="/"><i class="material-icons">dashboard</i>Dashboard</a></li>
+            <li><a class="waves-effect" href="/rules"><i class="material-icons">tune</i>Rules</a></li>
+            <li><a class="waves-effect" href="/recommendation"><i class="material-icons">tune</i>Recommendation</a></li>
+            <li><a class="waves-effect" href="/categorization"><i class="material-icons">tune</i>Categorization</a></li>
+            <li><div class="divider"></div></li>
+            <!--<li><a class="subheader">Info</a></li>
+            <li><a class="waves-effect" href="">Third Link With Waves</a></li>-->
+        </ul>
+        <div class="blue accent-4">
+            <div class="container">
+                <a class="green-text text-lighten-3" href="https://github.com/vaisham92/CMPE295">Team Illusion</a>
             </div>
-            <a href="{{profile.url}}"><img class="circle" ng-src="{{profile.image.url}}"></a>
-            <a href="{{profile.url}}"><span class="white-text name truncate">{{profile.displayName}}</span></a>
-            <a href="{{profile.url}}"><span class="white-text email">{{profile.emails[0].value}}</span></a>
-        </div></li>
-        <li><a class="waves-effect" href="/home"><i class="material-icons">dashboard</i>Dashboard</a></li>
-        <li><a class="waves-effect" href="/analytics"><i class="material-icons">tune</i>Analytics</a></li>
-        <li><a class="waves-effect" href="/home"><i class="material-icons">settings</i>Settings</a></li>
-        <li><div class="divider"></div></li>
-        <!--<li><a class="subheader">Info</a></li>
-        <li><a class="waves-effect" href="">Third Link With Waves</a></li>-->
-    </ul>
-</div>
-<div ng-view>
+        </div>
+        <nav class="blue accent-3 navbar-fixed" role="navigation">
+            <div class="nav-wrapper container"><a href="/home" class="brand-logo">History Analytics</a>
+                <ul class="right">
+                    <li class="waves-effect"><a ng-click="logout()"><i class="large material-icons">power_settings_new</i></a></li>
+                </ul>
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a href="#">Navbar Link</a></li>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+                <br>
+            </div>
+        </nav>
+    </div>
+    <div ng-view>
+        <div ui-view="">
+            <div id="wrapper" class=""></div>
+        </div>
+    </div>
 </div>
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
