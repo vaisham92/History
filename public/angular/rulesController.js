@@ -25,6 +25,4 @@ historyapp.controller('rulesController', function ($scope, $http) {
         });
     };
     getRules();
-
-
 });

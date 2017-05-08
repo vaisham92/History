@@ -50,13 +50,13 @@ exports.getRecommendations = function(request, response) {
                 if(data === null || data === undefined) {
                     response.send({
                         "status": 200,
-                        "rules": []
+                        "recommendations": []
                     });
                 }
                 else {
                     response.send({
                         "status": 200,
-                        "rules": data.recommendations
+                        "recommendations": data.recommendations
                     })
                 }
             });
@@ -71,33 +71,41 @@ exports.getRecommendations = function(request, response) {
 };
 
 exports.getCategorizations = function(request, response) {
-    try {
-        mongo.connect(mongoURL, function () {
-            var result_collection = mongo.collection('r' + request.query.date);
-            console.log('r' + request.query.date);
-            var searchData = {};
-            searchData["user_id"] = request.session.profile.id;
-            console.log(searchData);
-            dbHelper.readOne(result_collection, searchData, null, function (data) {
-                if(data === null || data === undefined) {
-                    response.send({
-                        "status": 200,
-                        "rules": []
-                    });
-                }
-                else {
-                    response.send({
-                        "status": 200,
-                        "rules": data.categories
-                    })
-                }
+    if(request.session.profile) {
+        try {
+            mongo.connect(mongoURL, function () {
+                var result_collection = mongo.collection('r' + request.query.date);
+                console.log('r' + request.query.date);
+                var searchData = {};
+                searchData["user_id"] = request.session.profile.id;
+                console.log(searchData);
+                dbHelper.readOne(result_collection, searchData, null, function (data) {
+                    if(data === null || data === undefined) {
+                        response.send({
+                            "status": 200,
+                            "categories": []
+                        });
+                    }
+                    else {
+                        response.send({
+                            "status": 200,
+                            "categories": data.categories
+                        })
+                    }
+                });
+            }); // mongo connection
+        }
+        catch (err) {
+            response.send({
+                "status": 500,
+                "errmsg": "Unable to fetch data"
             });
-        }); // mongo connection
+        }
     }
-    catch (err) {
+    else {
         response.send({
-            "status": 500,
-            "errmsg": "Unable to fetch data"
+            "status": 401,
+            "errmsg": "Unauthorized"
         });
     }
 };
