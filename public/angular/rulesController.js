@@ -15,7 +15,9 @@ historyapp.controller('rulesController', function ($scope, $http) {
             mm='0'+mm
         }
         var tempDate = new Date();
-        $scope.date = tempDate.setDate(tempDate.getDate() - 1).toDateString();
+        var temp = tempDate.setDate(tempDate.getDate() - 1);
+        tempDate = new Date(temp);
+        $scope.date = tempDate.toDateString();
         today = mm + '' + dd + '' + yyyy;
         return today;
     };
