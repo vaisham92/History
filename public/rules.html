@@ -45,7 +45,7 @@
                 If you visit
                 <span ng-repeat="url in rule.LHS" class="blue-text">
                     "<a href="http://{{url}}" target="_blank">{{url}}</a>",
-                </span><br>then it is probable that you might visit&nbsp
+                </span><br>then it is <span class="green-text">{{rule.conf * 100}}%</span> probable that you might visit&nbsp
                 <span ng-repeat="url in rule.RHS" class="green-text">
                     "<a href="http://{{url}}" target="_blank">{{url}}</a>"
                 </span>
