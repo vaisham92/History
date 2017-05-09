@@ -14,7 +14,8 @@ historyapp.controller('recommendationController', function ($scope, $http) {
         if(mm<10) {
             mm='0'+mm
         }
-        $scope.date = today.toDateString();
+        var tempDate = new Date();
+        $scope.date = tempDate.setDate(tempDate.getDate() - 1).toDateString();
         today = mm + '' + dd + '' + yyyy;
         return today;
     };
