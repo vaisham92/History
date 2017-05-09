@@ -1,4 +1,25 @@
-<div class="ng-scope wrapper">
+<div class="preloader-background bglight">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<style>
+    .bglight {
+        background-color: #e3f2fd;
+    }
+</style>
+<div class="ng-scope wrapper bglight">
     <style>
         #chartdiv {
             width: 800px;
@@ -6,24 +27,27 @@
         }
     </style>
     <div class="container row">
-        <h5 class="red-text">Rules for yesterday are: </h5>
-        <div class="row">
-            <table>
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>LHS</th>
-                    <th>RHS</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="rule in rules">
-                    <td>{{$index + 1}}</td>
-                    <td>{{rule.LHS}}</td>
-                    <td>{{rule.RHS}}</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="card-panel">
+            <h5 class="blue-text">Rules generated on {{day}} are: </h5>
+            <br>
+            <style>
+                span {
+                    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+                }
+            </style>
+            <div ng-repeat="rule in rules">
+                <h5>{{$index+1}}.
+                If you visit
+                <span ng-repeat="url in rule.LHS" class="blue-text">
+                    "<a href="http://{{url}}" target="_blank">{{url}}</a>",
+                </span><br>then it is probable that you might visit&nbsp
+                <span ng-repeat="url in rule.RHS" class="green-text">
+                    "<a href="http://{{url}}" target="_blank">{{url}}</a>"
+                </span>
+                </h5>
+                <br>
+                <br>
+            </div>
         </div>
     </div>
     <footer class="page-footer blue accent-3">

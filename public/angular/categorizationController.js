@@ -2,6 +2,7 @@
  * Created by Vaishampayan Reddy on 5/7/2017.
  */
 historyapp.controller('categorizationController', function ($scope, $http) {
+    $('.preloader-background').fadeIn('slow');
     var getCollectionName = function() {
         var today = new Date();
         var dd = today.getDate();
@@ -48,7 +49,7 @@ historyapp.controller('categorizationController', function ($scope, $http) {
                    }
                     $scope.categories.push(dataProvider);
                 });
-                console.log($scope.categories[0][0]);
+                //console.log($scope.categories[0][0]);
                 var count = 1;
                 $scope.charts = [];
                 var chart;
@@ -77,6 +78,7 @@ historyapp.controller('categorizationController', function ($scope, $http) {
                     count = count + 1;
                     //$scope.charts.push(chart);
                 });
+                $('.preloader-background').fadeOut('slow');
             }
             else {
                 alert("No data");

@@ -1,3 +1,19 @@
+<div class="preloader-background">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
 <div class="ng-scope wrapper">
     <style>
         #chartdiv {
@@ -6,8 +22,44 @@
         }
     </style>
     <div class="container row">
-        <h4 class="red-text">dashboard</h4>
-        <h4 class="red-text">Please check back shortly</h4>
+        <h4 class="blue-text">Dashboard</h4>
+        <div class="card-panel">
+            <h5 class="blue-text">Frequently Visited Sites</h5><br>
+            <table class="striped highlight centered responsive-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Website</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="url in urls track by $index">
+                        <td>{{$index+1}}</td>
+                        <td><a href="https://{{url}}" target="_blank">https://{{url}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container row">
+        <h4 class="blue-text">Dashboard</h4>
+        <div class="card-panel">
+            <h5 class="blue-text">Frequently Visited Category of websites</h5><br>
+            <table class="striped highlight centered responsive-table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="category in categories track by $index">
+                    <td>{{$index+1}}</td>
+                    <td><a>{{category}}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <footer class="page-footer blue accent-3">
         <div class="container">

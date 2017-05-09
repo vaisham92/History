@@ -47,6 +47,7 @@ exports.getRecommendations = function(request, response) {
             searchData["user_id"] = request.session.profile.id;
             console.log(searchData);
             dbHelper.readOne(result_collection, searchData, null, function (data) {
+                //console.log(data);
                 if(data === null || data === undefined) {
                     response.send({
                         "status": 200,
@@ -56,7 +57,7 @@ exports.getRecommendations = function(request, response) {
                 else {
                     response.send({
                         "status": 200,
-                        "recommendations": data.recommendations
+                        "recommendations": data.recommended_urls
                     })
                 }
             });
@@ -90,6 +91,46 @@ exports.getCategorizations = function(request, response) {
                         response.send({
                             "status": 200,
                             "categories": data.categories
+                        })
+                    }
+                });
+            }); // mongo connection
+        }
+        catch (err) {
+            response.send({
+                "status": 500,
+                "errmsg": "Unable to fetch data"
+            });
+        }
+    }
+    else {
+        response.send({
+            "status": 401,
+            "errmsg": "Unauthorized"
+        });
+    }
+};
+
+exports.getResults = function(request, response) {
+    if(request.session.profile) {
+        try {
+            mongo.connect(mongoURL, function () {
+                var result_collection = mongo.collection('r' + request.query.date);
+                console.log('r' + request.query.date);
+                var searchData = {};
+                searchData["user_id"] = request.session.profile.id;
+                console.log(searchData);
+                dbHelper.readOne(result_collection, searchData, null, function (data) {
+                    if(data === null || data === undefined) {
+                        response.send({
+                            "status": 200,
+                            "results": []
+                        });
+                    }
+                    else {
+                        response.send({
+                            "status": 200,
+                            "results": data
                         })
                     }
                 });

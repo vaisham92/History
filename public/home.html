@@ -45,7 +45,12 @@
         padding-left: 300px;
     }
 </style>
-<div ng-app="historyapp">
+<style>
+    .bglight {
+        background-color: #e3f2fd;
+    }
+</style>
+<div ng-app="historyapp" class="bglight">
     <div class="wrapper" ng-controller="mainCTRL">
         <ul id="slide-out" class="side-nav fixed">
             <li><div class="userView">
@@ -57,9 +62,9 @@
                 <a href="{{profile.url}}"><span class="white-text email">{{profile.emails[0].value}}</span></a>
             </div></li>
             <li><a class="waves-effect" href="/"><i class="material-icons">dashboard</i>Dashboard</a></li>
-            <li><a class="waves-effect" href="/rules"><i class="material-icons">tune</i>Rules</a></li>
-            <li><a class="waves-effect" href="/recommendation"><i class="material-icons">tune</i>Recommendation</a></li>
-            <li><a class="waves-effect" href="/categorization"><i class="material-icons">tune</i>Categorization</a></li>
+            <li><a class="waves-effect" href="/rules"><i class="material-icons">view_list</i>Rules</a></li>
+            <li><a class="waves-effect" href="/recommendation"><i class="material-icons">supervisor_account</i>Recommendation</a></li>
+            <li><a class="waves-effect" href="/categorization"><i class="material-icons">line_weight</i>Categorization</a></li>
             <li><div class="divider"></div></li>
             <!--<li><a class="subheader">Info</a></li>
             <li><a class="waves-effect" href="">Third Link With Waves</a></li>-->

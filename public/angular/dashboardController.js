@@ -2,26 +2,69 @@
  * Created by Vaishampayan Reddy on 5/7/2017.
  */
 historyapp.controller('dashboardController', function ($scope, $http) {
-    var isLoggedIn = function() {
-      var isLoggedInResponse = $http.get('/isLoggedIn');
-      isLoggedInResponse.success(function(data) {
-          if(data.status === 200) {
-              $scope.profile = data.profile;
-          }
-          else if (data.status === 401) {
-              window.location = "/";
-          }
-          else {
-              window.location = "/";
-          }
-      });
+    $('.preloader-background').fadeIn('slow');
+    var getCollectionName = function() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd='0'+(dd - 1)
+        }
+        if(mm<10) {
+            mm='0'+mm
+        }
+        today = mm + '' + dd + '' + yyyy;
+        return today;
     };
-    isLoggedIn();
 
-    $scope.logout = function() {
-        var logout_response = $http.get('/logout');
-        logout_response.success(function(data) {
-            window.location = "/";
+    var get_categories = function() {
+        var collection_name = getCollectionName();
+        var categories_Response = $http.get('/api/results' + '?date=' + collection_name);
+        categories_Response.success(function(data) {
+            if(data.status === 200) {
+                if(data.results !== []) {
+                    $scope.urls = [];
+                    $scope.urls_meta = {};
+                    data.results.rules.forEach(function(rule) {
+                        rule.LHS.forEach(function(url) {
+                            //console.log(url);
+                            if($scope.urls_meta[url] != true) {
+                                $scope.urls.push(url);
+                                $scope.urls_meta[url] = true;
+                                console.log("here");
+                            }
+                        });
+                        rule.RHS.forEach(function(url) {
+                            if($scope.urls_meta[url] != true) {
+                                $scope.urls.push(url);
+                                $scope.urls_meta[url] = true;
+                                console.log("here");
+                            }
+                        });
+                    });
+                    console.log($scope.urls);
+                    $scope.categories = [];
+                    $scope.categories_meta = {};
+                    data.results.categories.forEach(function(category) {
+                        for (key in category.slot_categories) {
+                            if($scope.categories_meta[key] != true) {
+                                $scope.categories.push(key);
+                                $scope.categories_meta[key] = true;
+                                //console.log("here");
+                            }
+                        }
+                    });
+                    $('.preloader-background').fadeOut('slow');
+                }
+                else {
+                    // empty data
+                }
+            }
+            else {
+                alert("No data");
+            }
         });
     };
+    get_categories();
 });

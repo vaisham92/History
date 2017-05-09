@@ -2,6 +2,7 @@
  * Created by Vaishampayan Reddy on 5/7/2017.
  */
 historyapp.controller('rulesController', function ($scope, $http) {
+    $('.preloader-background').fadeIn('slow');
     var getCollectionName = function() {
         var today = new Date();
         var dd = today.getDate();
@@ -22,6 +23,7 @@ historyapp.controller('rulesController', function ($scope, $http) {
         var rules_response = $http.get('/api/rules' + '?date=' + collection_name);
         rules_response.success(function(data) {
            $scope.rules = data.rules;
+            $('.preloader-background').fadeOut('slow');
         });
     };
     getRules();

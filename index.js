@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 
+var router = express.Router();
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({resave: true, saveUninitialized: true, secret: 'historychromeapplication', cookie: { maxAge: 6000000 }}));
+router.use('/', express.static('app', { redirect: false }));
 app.get('/', function(req, res) {
     //console.log("entered here");
     //console.log(req.session.profile);
@@ -152,6 +154,7 @@ app.post('/history', dataCollector.saveDataByProfileId);
 app.get('/api/rules', resultsFetcher.getRules);
 app.get('/api/categories', resultsFetcher.getCategorizations);
 app.get('/api/recommendations', resultsFetcher.getRecommendations);
+app.get('/api/results', resultsFetcher.getResults);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

@@ -1,4 +1,25 @@
-<div class="ng-scope wrapper">
+<style>
+    .bglight {
+        background-color: #e3f2fd;
+    }
+</style>
+<div class="preloader-background">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="ng-scope wrapper bglight">
     <style>
         #chartdiv {
             width: 800px;
@@ -6,9 +27,47 @@
         }
     </style>
     <div class="container row">
-        <h4 class="red-text">dashboard</h4>
-        <h4 class="red-text">Please check back shortly</h4>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel">
+                        <span class="blue-text">
+                            <h5 align="center">Recommendations</h5><br>
+                            <h6 align="center">History's complex algorithms recognizes people all around the world with the browsing patterns similar to that of yours.
+                            We present to you the list of websites that are visited by people similar to your browsing preferences</h6></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel ">
+                    <span class="blue-text">
+                        <h6 align="center">People have also visited the following websites</h6>
+                        <table class="striped highlight centered responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Website</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="recommendation in recommendations track by $index">
+                                    <td>{{$index+1}}</td>
+                                    <td><a href="https://{{recommendation}}" target="_blank">https://{{recommendation}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <footer class="page-footer blue accent-3">
         <div class="container">
             <div class="row">
