@@ -14,10 +14,25 @@ historyapp.controller('categorizationController', function ($scope, $http) {
         if(mm<10) {
             mm='0'+mm
         }
+        $scope.date = today.toDateString();
         today = mm + '' + dd + '' + yyyy;
         return today;
     };
 
+    var getTimeHour = function(category_slot) {
+        console.log(category_slot);
+        var result = "From ";
+        if(category_slot / 10 < 1) {
+            if(category_slot < 9)
+                result += "0" + category_slot +":00  to 0" + (category_slot + 1) + ":00";
+            else
+                result += "0" + category_slot +":00  to 10:00";
+        }
+        else {
+            result += category_slot +":00  to " + (category_slot + 1) + ":00";
+        }
+        return result;
+    };
     var get_categories = function() {
         var collection_name = getCollectionName();
         var categories_Response = $http.get('/api/categories' + '?date=' + collection_name);
@@ -35,6 +50,7 @@ historyapp.controller('categorizationController', function ($scope, $http) {
                     }
                      */
                    var dataProvider = [];
+                   var divTagsList = [];
                    for(var key in category.slot_categories) {
                        /*
                         {
@@ -54,10 +70,11 @@ historyapp.controller('categorizationController', function ($scope, $http) {
                 $scope.charts = [];
                 var chart;
                 $scope.categories.forEach(function(category) {
-                    var divTag = "<div class=\"chartdivx\" id=\"mychart" + count + "\"></div>";
+                    console.log(category);
+                    var divTag = "<div class=\"row card-panel\"><h5 class=\"blue-text\">" + getTimeHour(data.categories[count - 1].slot) + "</h5><div class=\"chartdivx\" id=\"mychart" + count + "\"></div></div>";
                     $("#allcharts").append(divTag);
-                    console.log(JSON.stringify(category));
-                    console.log("mychart" + count);
+                    //console.log(JSON.stringify(category));
+                    //console.log("mychart" + count);
                     AmCharts.makeChart( "mychart" + count, {
                         "type": "pie",
                         "theme": "light",
