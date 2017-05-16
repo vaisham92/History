@@ -11,6 +11,10 @@ historyapp.controller('dashboardController', function ($scope, $http) {
         if(dd<10) {
             dd='0'+(dd - 1)
         }
+        else
+        {
+            dd = dd - 1;
+        }
         if(mm<10) {
             mm='0'+mm
         }
